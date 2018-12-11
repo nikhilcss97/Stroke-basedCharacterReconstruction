@@ -5,10 +5,13 @@ canvas_width = 256
 output_width = 64
 
 def normal(x):
-    return (int)(x * (canvas_width - 1) + 0.5)
+    return (int)(x * (canvas_width - 1) + 0.5)  # 0.5 is added to make the value of x ceil(x)
+"""
+    Eg. if x= 0.7, then 0.7*255= 178.5 +.5 = 179
+"""
 
 def draw(f):
-    x0, y0, z0, x1, y1, z1, x2, y2, z2 = f
+    x0, y0, z0, x1, y1, z1, x2, y2, z2 = f      # f is a 9 valued tuple
     x0 = normal(x0)
     x1 = normal(x1)
     x2 = normal(x2)
