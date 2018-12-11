@@ -23,10 +23,10 @@ def draw(f):
     z2 = (int)(z2 * 32 + 2)
     canvas = np.zeros([canvas_width, canvas_width]).astype('float32')
     tmp = 1. / 100
-    for i in range(100):
+    for i in range(100):  #100 circles are drawn
         t = i * tmp
         x = (int)((1-t) * (1-t) * x0 + 2 * t * (1-t) * x1 + t * t * x2)
         y = (int)((1-t) * (1-t) * y0 + 2 * t * (1-t) * y1 + t * t * y2)
         z = (int)((1-t) * (1-t) * z0 + 2 * t * (1-t) * z1 + t * t * z2)
         cv2.circle(canvas, (y, x), z, 1., -1)
-    return 1 - cv2.resize(canvas, dsize=(output_width, output_width))
+    return 1 - cv2.resize(canvas, dsize=(output_width, output_width)) # Color invert black->white and white->black
