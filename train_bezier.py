@@ -34,11 +34,11 @@ while True:
     train_batch = []
     ground_truth = []
     for i in range(batch_size):
-        f = np.random.uniform(0, 1, 9)
+        f = np.random.uniform(0, 1, 9)    # Appending the 9 parameter numbers of the bezier curve as the training set
         train_batch.append(f)   # A list of np arrays(9 elements)
-        ground_truth.append(draw(f))
+        ground_truth.append(draw(f))    #Appending the strokes generated(images-> 64*64) to the ground truth dataset
         
-    train_batch = torch.tensor(train_batch).float()
+    train_batch = torch.tensor(train_batch).float()  #Converting everything to tensors
     ground_truth = torch.tensor(ground_truth).float()
     if use_cuda:
         Decoder = Decoder.cuda()
