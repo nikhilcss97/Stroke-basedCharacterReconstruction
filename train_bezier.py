@@ -35,7 +35,7 @@ while True:
     ground_truth = []
     for i in range(batch_size):
         f = np.random.uniform(0, 1, 9)
-        train_batch.append(f)
+        train_batch.append(f)   # A list of np arrays(9 elements)
         ground_truth.append(draw(f))
         
     train_batch = torch.tensor(train_batch).float()
