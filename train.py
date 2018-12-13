@@ -8,7 +8,8 @@ import torch.nn.functional as F
 import torchvision.transforms as transforms
 from tensorboard import TensorBoard
 from model import FCN
-from synth import Generator
+from synth import Generator    # Used to add noise to images
+G = Generator()
 
 from bezier import *
 from vggnet import *
@@ -36,7 +37,6 @@ Label_batch = [None] * data_size
 Val_train_batch = [None] * val_data_size
 Val_ground_truth = [None] * val_data_size
 Val_label_batch = [None] * val_data_size
-G = Generator()
 
 def hisEqulColor(img):         #Performs histogram equalizaton and returns the image as it is
     img_yuv = cv2.cvtColor(img, cv2.COLOR_BGR2YUV)
@@ -68,7 +68,7 @@ def decode(x, train_bezier=False): # b * 36
     x = x.reshape(-1, 4, 64, 64)
     return torch.min(x.permute(0, 2, 3, 1), dim=3)[0], y
 
-def sample(n, test=False):
+def sample(n, test=False):  #Returns a sample batch of input_batch, ground_truth, label_batch of size n= batch_size
     input_batch = []
     ground_truth = []
     label_batch = []
@@ -88,7 +88,7 @@ def sample(n, test=False):
     label_batch =  torch.tensor(np.array(label_batch))
     return input_batch, ground_truth, label_batch
 
-def generate_data():
+def generate_data():    #Used to generate data. Fills the Train_batch, Ground_truth and Labeel_batch arrays with images
     print('Generating data')
     global Train_batch, Ground_truth
     global first_generate
@@ -102,7 +102,7 @@ def generate_data():
             if Label[i][0] % 10 == 0:
                 Label[i][0] = 0
         for i in range(val_data_size):
-            img = np.array(Data[..., i])
+            img = np.array(Data[..., i])    #Returns a single image out of the set of images
             origin = noised = img
             origin = cv2.cvtColor(origin, cv2.COLOR_RGB2GRAY)
             origin = cv2.resize(origin, dsize=(64, 64), interpolation=cv2.INTER_CUBIC)
@@ -114,7 +114,7 @@ def generate_data():
     global generated_size
     for i in range(1000):
         id = generated_size % data_size
-        img, origin, label = G.generate()
+        img, origin, label = G.generate()     #G is an object of Generator inside the synth file
         origin = 255. - cv2.cvtColor(origin, cv2.COLOR_RGB2GRAY)
         Train_batch[id] = hisEqulColor(img) / 255.
         Ground_truth[id] = origin / 255.
