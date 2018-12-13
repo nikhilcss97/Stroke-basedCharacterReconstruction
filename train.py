@@ -38,13 +38,13 @@ Val_ground_truth = [None] * val_data_size
 Val_label_batch = [None] * val_data_size
 G = Generator()
 
-def hisEqulColor(img):
+def hisEqulColor(img):         #Performs histogram equalizaton and returns the image as it is
     img_yuv = cv2.cvtColor(img, cv2.COLOR_BGR2YUV)
     img_yuv[:,:,0] = cv2.equalizeHist(img_yuv[:,:,0])
     img_output = cv2.cvtColor(img_yuv, cv2.COLOR_YUV2BGR)
     return img_output
 
-def save_model():
+def save_model():              
     if use_cuda:
         Decoder.cpu()
         Encoder.cpu()
