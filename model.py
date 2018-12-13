@@ -28,7 +28,7 @@ class FCN(nn.Module):
         nn.init.kaiming_uniform_(self.conv2.weight)
         nn.init.kaiming_uniform_(self.conv3.weight)
         
-    def forward(self, x):
+    def forward(self, x):   # forward is an overridden method where x defines the input
         x = self.fc0(x)
         x = self.relu(x)
         x = self.fc1(x)
