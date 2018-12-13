@@ -125,7 +125,7 @@ if use_cuda:
     Decoder = Decoder.cuda()
     Encoder = Encoder.cuda()
 
-def train_bezier(x, img):
+def train_bezier(x, img):       #Takes the ground truth and 
     Decoder.train()
     x = x.reshape(-1, 9)
     bezier = []
