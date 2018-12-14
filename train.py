@@ -155,7 +155,7 @@ def train():
         train_batch = train_batch.cuda()
         ground_truth = ground_truth.cuda()
         label_batch = label_batch.cuda()
-    infered_stroke, infered_class = Encoder(train_batch)
+    infered_stroke, infered_class = Encoder(train_batch)   # infered_stroke= 36, infered_class= 10
     # if step % 5 == 0:
     #    img, stroke_img = decode(infered_stroke, True)
     #    train_bezier(infered_stroke, stroke_img)
