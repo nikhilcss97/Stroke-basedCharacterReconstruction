@@ -81,6 +81,6 @@ class VGG(nn.Module):
         return nn.Sequential(*layers)
 
 if __name__ == "__main__":
-    net = VGG(16, 10)
-    y = net(Variable(torch.randn(1,3,32,32)))
+    net = VGG(16, 10)    #Initializing the VGGnet architecture with 16 depth and 10 num_outputs
+    y = net(Variable(torch.randn(1,3,32,32)))    #Passing in the data -> batch_size, channels, height, width
     print(y.size())
