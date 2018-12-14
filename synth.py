@@ -198,10 +198,11 @@ class Generator:
         return img, origin
     
     def generate(self):
-        label0 = np.random.randint(10)
+        label0 = np.random.randint(10)     #Generates a random integer between 0-9
         label1 = np.random.randint(10)
         label2 = np.random.randint(10)
-        img0 = img_list[np.random.randint(500) * 10 + label0]
+        img0 = img_list[np.random.randint(500) * 10 + label0]       #Generates a random integer between 0-499, multiplies 
+                                                                    #it by 10 and adds the previously generated random int
         img1 = img_list[np.random.randint(500) * 10 + label1]
         img2 = img_list[np.random.randint(500) * 10 + label2]
         label1 += 1
