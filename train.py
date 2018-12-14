@@ -20,7 +20,7 @@ import torch.optim as optim
 criterion = nn.MSELoss()
 criterion2 = nn.CrossEntropyLoss()
 
-Decoder = FCN(64)
+Decoder = FCN(64)   #Initializing the FCN network with width 64 (which is useless as the entire thing is hardcoded)
 optimizerE = optim.Adam(Encoder.parameters(), lr=3e-4)
 optimizerD = optim.Adam(Decoder.parameters(), lr=3e-4)
 batch_size = 64
