@@ -96,7 +96,7 @@ def generate_data():    #Used to generate data. Fills the Train_batch, Ground_tr
         first_generate = False
         import scipy.io as sio
         mat = sio.loadmat('../data/svhn/train_32x32.mat')
-        Data = mat['X']
+        Data = mat['X']   #SVHN dataset is used to generate the Validation data
         Label = mat['y']
         for i in range(len(Label)):    #Converts the "10" label given to 0 to "0" label
             if Label[i][0] % 10 == 0:
@@ -116,7 +116,7 @@ def generate_data():    #Used to generate data. Fills the Train_batch, Ground_tr
         id = generated_size % data_size
         img, origin, label = G.generate()     #G is an object of Generator inside the synth file
         origin = 255. - cv2.cvtColor(origin, cv2.COLOR_RGB2GRAY)
-        Train_batch[id] = hisEqulColor(img) / 255.
+        Train_batch[id] = hisEqulColor(img) / 255.   #G.generate() is used to get the training data
         Ground_truth[id] = origin / 255.
         Label_batch[id] = label
         generated_size += 1
