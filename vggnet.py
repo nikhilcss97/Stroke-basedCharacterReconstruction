@@ -57,12 +57,12 @@ class VGG(nn.Module):
         self.fc3 = nn.Linear(256, 10)
 
     def forward(self, x):
-        x = self.features(x)
-        x = x.view(x.size(0), -1)
+        x = self.features(x)        # x -> batch_size, channels, height, width
+        x = x.view(x.size(0), -1)     #x.size(0)  is equivalent to x.shape[0]   #x -> batch_size, channels*height*width
         x = F.relu(self.fc0(x))
-        x = F.sigmoid(self.fc1(x))
+        x = F.sigmoid(self.fc1(x))      #x -> batch_size, 36
         y = F.relu(self.fc2(x))
-        y = self.fc3(y)
+        y = self.fc3(y)                 #y -> batch_size, 10
         return x, y
 
     def _make_layers(self, cfg):
