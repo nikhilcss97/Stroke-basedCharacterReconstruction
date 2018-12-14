@@ -66,8 +66,11 @@ def decode(x, train_bezier=False): # b * 36    #x= 'infered stroke' = batch_size
         y = None
     x = Decoder(x)    # x=  batch_size*4, 64, 64
     x = x.reshape(-1, 4, 64, 64)   #x -> batch_size, 4, 64, 64    # 4 number of strokes
-    return torch.min(x.permute(0, 2, 3, 1), dim=3)[0], y    #x= batch, height, width, channels
-
+    return torch.min(x.permute(0, 2, 3, 1), dim=3)[0], y    #x= batch, height, width, channels   
+    # will return batch_size, 64, 64
+    
+    
+    
 def sample(n, test=False):  #Returns a sample batch of input_batch, ground_truth, label_batch of size n= batch_size
     input_batch = []
     ground_truth = []
