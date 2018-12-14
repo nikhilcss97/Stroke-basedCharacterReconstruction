@@ -29,7 +29,7 @@ class FCN(nn.Module):
         nn.init.kaiming_uniform_(self.conv3.weight)
         
     def forward(self, x):   # forward is an overridden method where x defines the input
-        x = self.fc0(x)
+        x = self.fc0(x)     # x-> batch_size*4 x 9
         x = self.relu(x)
         x = self.fc1(x)
         x = self.relu(x)
@@ -37,12 +37,12 @@ class FCN(nn.Module):
         x = self.relu(x)
         x = self.fc3(x)
         x = self.relu(x)
-        x = x.view(-1, 16, 16, 16)
-        x = self.upsample(x)
+        x = x.view(-1, 16, 16, 16)    #x -> batch_size*4 x16x16x16
+        x = self.upsample(x)          #x -> batch_size*4 x16x32x32
         x = self.relu(self.conv0(x))
         x = self.relu(self.conv1(x))
-        x = self.upsample(x)
+        x = self.upsample(x)           #x -> batch_size*4 x16x64x64
         x = self.relu(self.conv2(x))
-        x = self.conv3(x)
+        x = self.conv3(x)               #x -> batch_size*4 x1x16x16
         x = self.sigmoid(x)
-        return x.reshape(-1, 64, 64)
+        return x.reshape(-1, 64, 64)    # x -> batch_size*4 x16x16
