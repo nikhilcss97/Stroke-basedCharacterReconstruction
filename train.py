@@ -102,12 +102,12 @@ def generate_data():    #Used to generate data. Fills the Train_batch, Ground_tr
             if Label[i][0] % 10 == 0:
                 Label[i][0] = 0
         for i in range(val_data_size):
-            img = np.array(Data[..., i])    #Returns a single image out of the set of images
+            img = np.array(Data[..., i])    #Returns a single image out of the set of images img -> 32x32x3
             origin = noised = img
-            origin = cv2.cvtColor(origin, cv2.COLOR_RGB2GRAY)
-            origin = cv2.resize(origin, dsize=(64, 64), interpolation=cv2.INTER_CUBIC)
-            noised = cv2.resize(noised, dsize=(64, 64), interpolation=cv2.INTER_CUBIC)
-            noised = hisEqulColor(noised) / 255.
+            origin = cv2.cvtColor(origin, cv2.COLOR_RGB2GRAY)   #origin -> 32x32x1
+            origin = cv2.resize(origin, dsize=(64, 64), interpolation=cv2.INTER_CUBIC)    #origin -> 64x64x1
+            noised = cv2.resize(noised, dsize=(64, 64), interpolation=cv2.INTER_CUBIC)    #noised -> 64x64x3
+            noised = hisEqulColor(noised) / 255.       # noised -> 64x64x3
             Val_train_batch[i] = noised
             Val_ground_truth[i] = 1 - origin / 255.
             Val_label_batch[i] = Label[i][0]
