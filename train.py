@@ -58,14 +58,14 @@ def load_weights():
     Decoder.load_state_dict(torch.load('./Decoder.pkl'))
     # Encoder.load_state_dict(torch.load('./Encoder.pkl'))
 
-def decode(x, train_bezier=False): # b * 36    #x= 'infered stroke' = 36
-    x = x.reshape(-1, 9)    # x= 4*9
+def decode(x, train_bezier=False): # b * 36    #x= 'infered stroke' = batch_size x 36
+    x = x.reshape(-1, 9)    # x= batch_size*4 x 9
     if train_bezier:
         y = Decoder(x.detach())
     else:
         y = None
-    x = Decoder(x)    # x= -1, 64, 64
-    x = x.reshape(-1, 4, 64, 64)   # 4 number of strokes
+    x = Decoder(x)    # x=  batch_size*4, 64, 64
+    x = x.reshape(-1, 4, 64, 64)   #x -> batch_size, 4, 64, 64    # 4 number of strokes
     return torch.min(x.permute(0, 2, 3, 1), dim=3)[0], y    #x= batch, height, width, channels
 
 def sample(n, test=False):  #Returns a sample batch of input_batch, ground_truth, label_batch of size n= batch_size
@@ -155,7 +155,7 @@ def train():
         train_batch = train_batch.cuda()
         ground_truth = ground_truth.cuda()
         label_batch = label_batch.cuda()
-    infered_stroke, infered_class = Encoder(train_batch)   # infered_stroke= 36, infered_class= 10
+    infered_stroke, infered_class = Encoder(train_batch)   # infered_stroke= batch_sizex36, infered_class= batch_sizex10
     # if step % 5 == 0:
     #    img, stroke_img = decode(infered_stroke, True)
     #    train_bezier(infered_stroke, stroke_img)
