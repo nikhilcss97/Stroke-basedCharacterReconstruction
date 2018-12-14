@@ -144,7 +144,13 @@ def train_bezier(x, img):       #Takes the ground truth and
 def train():    
     Encoder.train()
     train_batch, ground_truth, label_batch = sample(batch_size, test=False)
-    train_batch = train_batch.permute(0, 3, 1, 2)
+    train_batch = train_batch.permute(0, 3, 1, 2)    #Permute is used to change the axis of the data.
+    """
+    Reason: Encoder takes in data in the format: batch_size, channels, height, width but the original data is batch_size, 
+    height, width, channels
+    
+    
+    """
     if use_cuda:
         train_batch = train_batch.cuda()
         ground_truth = ground_truth.cuda()
