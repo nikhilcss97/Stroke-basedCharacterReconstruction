@@ -98,7 +98,7 @@ def generate_data():    #Used to generate data. Fills the Train_batch, Ground_tr
         mat = sio.loadmat('../data/svhn/train_32x32.mat')
         Data = mat['X']
         Label = mat['y']
-        for i in range(len(Label)):
+        for i in range(len(Label)):    #Converts the "10" label given to 0 to "0" label
             if Label[i][0] % 10 == 0:
                 Label[i][0] = 0
         for i in range(val_data_size):
@@ -112,7 +112,7 @@ def generate_data():    #Used to generate data. Fills the Train_batch, Ground_tr
             Val_ground_truth[i] = 1 - origin / 255.
             Val_label_batch[i] = Label[i][0]
     global generated_size
-    for i in range(1000):
+    for i in range(1000):     # Gets the image, original and the label from generate method in synth.py module
         id = generated_size % data_size
         img, origin, label = G.generate()     #G is an object of Generator inside the synth file
         origin = 255. - cv2.cvtColor(origin, cv2.COLOR_RGB2GRAY)
