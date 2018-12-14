@@ -13,8 +13,8 @@ G = Generator()
 
 from bezier import *
 from vggnet import *
-Encoder = VGG(16, 36)
-
+Encoder = VGG(16, 36)      #Initializing a VGGnet architecture with 16 depth and 39 (9*4) as the num_outputs.
+                           #Now we have to pass in the data 
 writer = TensorBoard('log/')
 import torch.optim as optim
 criterion = nn.MSELoss()
