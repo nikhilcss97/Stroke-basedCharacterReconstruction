@@ -71,7 +71,7 @@ def decode(x, train_bezier=False): # b * 36    #x= 'infered stroke' = batch_size
     
     
     
-def sample(n, test=False):  #Returns a sample batch of input_batch, ground_truth, label_batch of size n= batch_size
+def sample(n, test=False):  # n -> batch_size #Returns a sample batch of input_batch, ground_truth, label_batch of size n= batch_size
     input_batch = []
     ground_truth = []
     label_batch = []
@@ -89,7 +89,7 @@ def sample(n, test=False):  #Returns a sample batch of input_batch, ground_truth
     input_batch = torch.tensor(input_batch).float()
     ground_truth = torch.tensor(ground_truth).float()
     label_batch =  torch.tensor(np.array(label_batch))
-    return input_batch, ground_truth, label_batch
+    return input_batch, ground_truth, label_batch       # batch_size x 
 
 def generate_data():    #Used to generate data. Fills the Train_batch, Ground_truth and Labeel_batch arrays with images
     print('Generating data')
